@@ -5,6 +5,7 @@ import * as dotenv from "dotenv";
 import * as bodyParser from 'body-parser';
 import createNewUser from "./API/createNewUser";
 import checkUserByEmail from "./API/checkUserByEmail";
+import {IUser} from "./API/interfaces";
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
@@ -17,7 +18,7 @@ app.post('/register', async (req, res) => {
     try {
         const { firstname, surname, email, password } = req.body;
         // Check if user already exists
-        const existingUser = await checkUserByEmail(email);
+        const existingUser: IUser = await checkUserByEmail(email);
         if (!!existingUser) return res.status(400).send('User already exists.');
 
         // Hash password
@@ -42,7 +43,7 @@ app.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         // Find user by email
-        const user = await checkUserByEmail(email);
+        const user: IUser = await checkUserByEmail(email);
         if (!user) return res.status(400).send('Invalid email or password.');
 
         // Check password

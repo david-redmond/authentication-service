@@ -1,10 +1,11 @@
 import axios from "axios";
+import {IUser} from "./interfaces";
 
-async function checkUserByEmail(email: string) {
+async function checkUserByEmail(email: string): Promise<IUser> {
     try {
         const userService = process.env.USER_SERVICE || "missing";
 
-        const url = `${userService}/`;
+        const url = `${userService}/check`;
 
         const data = {
             email: email
