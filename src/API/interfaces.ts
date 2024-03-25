@@ -1,14 +1,14 @@
 export interface ICreateUserData {
-    firstname: string
-    surname: string
-    email: string
-    hashedPassword: string;
+  firstname: string;
+  surname: string;
+  email: string;
+  hashedPassword: string;
 }
 
 export interface IUser {
-    _id: string;
-    firstname: string
-    surname: string
-    email: string
-    password: string;
+  _id: string;
+  firstname: string;
+  surname: string;
+  email: string;
+  password: string;
 }
