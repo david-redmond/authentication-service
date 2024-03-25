@@ -60,7 +60,7 @@ app.post("/login", async (req, res) => {
     const token = jwt.sign({ _id: user._id }, secretKey);
     res
       .header("Authorization", token)
-      .json({ message: "Login successful.", user });
+      .json({ message: "Login successful.", id: user._id });
   } catch (error) {
     console.error(
       "Error POST /login :",
