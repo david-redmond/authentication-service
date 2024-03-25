@@ -18,7 +18,7 @@ async function checkUserByEmail(email: string): Promise<IUser> {
         return response.data
     } catch (error) {
         // Log any errors
-        console.error('Error checkUserByEmail:', error);
+        console.error('Error checkUserByEmail:', error.code, error.message);
         return null;
     }
 };
