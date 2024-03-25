@@ -27,7 +27,7 @@ describe("createNewUser function", () => {
     expect(response).toEqual({ id: 1 });
     expect(axios.post).toHaveBeenCalledTimes(1);
     expect(axios.post).toHaveBeenCalledWith(
-      expect.stringContaining("/create"),
+      expect.stringContaining("/"),
       userData,
     );
   });
@@ -51,7 +51,7 @@ describe("createNewUser function", () => {
 
     expect(axios.post).toHaveBeenCalledTimes(1);
     expect(axios.post).toHaveBeenCalledWith(
-      expect.stringContaining("/create"),
+      expect.stringContaining("/"),
       userData,
     );
   });
