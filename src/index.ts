@@ -59,7 +59,8 @@ app.post("/login", async (req, res) => {
     // Generate JWT token
     const token = jwt.sign({ _id: user._id }, secretKey);
     res
-      .header("Authorization", token)
+      .header("x-auth-token", token)
+      .header("access-control-expose-headers", "x-auth-token")
       .json({ message: "Login successful.", user });
   } catch (error) {
     console.error(
