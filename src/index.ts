@@ -3,6 +3,7 @@ import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 import * as dotenv from "dotenv";
 import * as bodyParser from "body-parser";
+import * as cors from "cors";
 import createNewUser from "./API/createNewUser";
 import checkUserByEmail from "./API/checkUserByEmail";
 import { IUser } from "./API/interfaces";
@@ -12,6 +13,7 @@ const port = process.env.PORT || 3000;
 const secretKey = process.env.SECRET_KEY || "---";
 
 app.use(bodyParser.json());
+app.use(cors());
 
 // Register endpoint
 app.post("/register", async (req, res) => {
