@@ -3,6 +3,7 @@ export interface ICreateUserData {
   surname: string;
   email: string;
   hashedPassword: string;
+  attributes: {};
 }
 
 export interface IUser {

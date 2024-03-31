@@ -32,6 +32,7 @@ app.post("/register", async (req, res) => {
         surname,
         email,
         hashedPassword,
+        attributes: {}
       });
       return res.status(201).send("User registered successfully.");
     }

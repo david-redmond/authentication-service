@@ -15,6 +15,7 @@ async function createNewUser({
       surname,
       email,
       hashedPassword,
+      attributes: {}
     };
     const response = await axios.post(url, data);
     console.log("Success createNewUser:", response.data);
