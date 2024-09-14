@@ -5,12 +5,12 @@ export interface IUser {
   firstname: string;
   surname: string;
   email: string;
-  password?: string;
+  password: string;
   provider: string;
   attributes: { [key: string]: any };
 }
 
-interface UserModel extends Model<IUser> {
+export interface UserModel extends Model<IUser> {
   // myStaticMethod(): number;
 }
 
