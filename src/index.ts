@@ -14,8 +14,26 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:8000', // Replace with your frontend origin
+  credentials: true
+}));
+
+// Set Content Security Policy (CSP) header
+app.use((req, res, next) => {
+  res.setHeader(
+      'Content-Security-Policy',
+      "default-src 'self'; connect-src 'self' http://localhost:4200; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net"
+  );
+  next();
+});
+
 mongoConnection();
+
+app.use((req, res, next) => {
+  res.setHeader("Content-Security-Policy", "default-src 'self' http://localhost:4200");
+  next();
+});
 
 // Register endpoint
 app.post("/auth/register", async (req, res) => {
