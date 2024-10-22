@@ -7,6 +7,7 @@ import * as cors from "cors";
 import { IUser } from "./models/User";
 import { mongoConnection } from "./database/connection";
 import { User } from "./models/User";
+import * as process from "process";
 
 config();
 
@@ -14,19 +15,23 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
-app.use(cors({
-  origin: 'http://localhost:8000', // Replace with your frontend origin
-  credentials: true
-}));
+if (process.env.LOCAL) {
+  app.use(cors({
+    origin: 'http://localhost:8000', // Replace with your frontend origin
+    credentials: true
+  }));
 
 // Set Content Security Policy (CSP) header
-app.use((req, res, next) => {
-  res.setHeader(
-      'Content-Security-Policy',
-      "default-src 'self'; connect-src 'self' http://localhost:4200; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net"
-  );
-  next();
-});
+  app.use((req, res, next) => {
+    res.setHeader(
+        'Content-Security-Policy',
+        "default-src 'self'; connect-src 'self' http://localhost:4200; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net"
+    );
+    next();
+  });
+} else {
+  app.use(cors());
+}
 
 mongoConnection();
 
