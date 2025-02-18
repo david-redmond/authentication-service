@@ -12,7 +12,7 @@ import * as process from "process";
 config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 app.use(bodyParser.json());
 if (process.env.LOCAL) {
@@ -92,14 +92,16 @@ app.post("/auth/login", async (req, res) => {
       console.error("POST /auth/login : user doesn't exist", req.body.email);
       return res.status(400).send("Invalid email or password.");
     }
-
+    if (user.provider === "facebook") {
+      console.error("POST /auth/login : user is a facebook user", req.body.email);
+      return res.status(403).send("Invalid email, password or provider.");
+    }
     // Check password
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
       console.log("POST /auth/login: Invalid password.");
       return res.status(400).send("Invalid email or password.");
     }
-
     // Generate JWT token
     const token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY);
     return res
